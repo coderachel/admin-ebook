@@ -12,7 +12,7 @@ router.use(jwtAuth)
 
 router.use('/user', userRouter)
 
-router.use('/bookRouter', bookRouter)
+router.use('/book', bookRouter)
 /**
  * 集中处理404请求的中间件
  * 注意：该中间件必须放在正常处理流程之后

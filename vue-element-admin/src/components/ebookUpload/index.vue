@@ -55,12 +55,24 @@ export default {
     beforeUpload(file) {
       this.$emit('beforeUpload', file)
     },
-    onSuccess() {},
+    onSuccess(res, file) {
+      const { code, msg } = res
+      if (code === 0) {
+        this.$message.success(msg)
+        this.$emit('onSuccess', file)
+      } else {
+        this.$message.error(msg && `上传失败，失败原因：${msg}` || '上传失败')
+        this.$emit('onError', file)
+      }
+    },
     onError(err) {
       const errMsg = err && err.message && JSON.parse(err.message)
       this.$message.error(errMsg && errMsg.msg && `上传失败，失败原因：${errMsg.msg}` || '上传失败')
     },
-    onRemove() {},
+    onRemove() {
+      this.$message.success('电子书删除成功')
+      this.$emit('onRemove')
+    },
     onExceed() {
       this.$message.warning('每次只能上传一本电子书')
     }
